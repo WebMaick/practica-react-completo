@@ -7,7 +7,8 @@
     "express": "4.18.2",
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^7.5.3"
+    "mongoose": "^7.5.3",
+    "standard": "^17.1.0"
   },
   "description": "",
   "devDependencies": {
@@ -16,10 +17,14 @@
   "keywords": [],
   "license": "ISC",
   "main": "index.js",
+  "eslintconfig": {
+    "extends": ".node_modules/standard/eslintrc.json"
+  },
   "name": "merns-stack",
   "scripts": {
     "dev": "nodemon ./server/index.js",
     "start": "node ./server/index.js"
   },
+  "type": "module",
   "version": "1.0.0"
 }

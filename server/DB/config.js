@@ -1,15 +1,10 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
-const connecionDB = async () => {
+export const conectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI)
-
-    console.log('DB Online')
+    console.log('BD Online')
   } catch (error) {
-    console.log('Error al conectar la BD: ' + error)
+    console.log('Error al conectar a la BD' + error)
   }
-}
-
-module.exports = {
-  connecionDB,
 }

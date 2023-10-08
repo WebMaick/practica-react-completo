@@ -39,7 +39,7 @@ const signin = async (req, res = response) => {
         id: usuario.id,
         fullname: usuario.fullname,
         email: usuario.email,
-        token,
+        // token,
       });
   } catch (err) {
     console.log(err);

@@ -7,3 +7,6 @@
 
 - npm i react-icons
 - npm i react-router-dom
+- npm i @redux/toolkit
+- npm i react-redux
+- npm i redux-persist

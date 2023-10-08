@@ -1,6 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/useForm";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "../redux/user/userSlice";
 
 const initialState = {
   email: "",
@@ -10,10 +15,9 @@ const initialState = {
 export const SignIn = () => {
   const [formValues, handleInput] = useForm(initialState);
   const { email, password } = formValues;
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,8 +26,7 @@ export const SignIn = () => {
 
     try {
       // Envio de formulario
-      setError(true);
-      setIsLoading(true);
+      dispatch(signInStart());
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: {
@@ -33,17 +36,15 @@ export const SignIn = () => {
       });
       const data = await res.json();
       console.log(data);
-      if (data.ok) {
-        navigate("/");
-      } else {
-        setErrorMessage(data.message);
-        setError(true);
+      if (!data.ok) {
+        return dispatch(signInFailure(data.message));
+        // setError(true);
       }
+      dispatch(signInSuccess(data));
+      navigate("/");
     } catch (err) {
       console.log(err);
-      setErrorMessage(err.message);
-    } finally {
-      setIsLoading(false);
+      dispatch(signInFailure(err.message));
     }
   };
 
@@ -74,15 +75,15 @@ export const SignIn = () => {
 
           {error && (
             <div className="py-1 text-sm text-center text-white bg-red-500">
-              {errorMessage}
+              {error}
             </div>
           )}
 
           <button
-            disabled={isLoading}
+            disabled={loading}
             className="py-2.5 mt-3 text-white rounded-md disabled:opacity-80 bg-gray-950 hover:opacity-95"
           >
-            {isLoading ? "Cargando..." : "Sign In"}
+            {loading ? "Cargando..." : "Sign In"}
           </button>
         </form>
 

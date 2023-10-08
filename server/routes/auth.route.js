@@ -23,4 +23,19 @@ router.post(
   signup
 );
 
+// Inicar sesion SignIn
+router.post(
+  "/signin",
+  [
+    // midelwares
+    check("email", "El email es obligatorio").isEmail(),
+    check(
+      "password",
+      "El passwor debe contener al menos 5 caracteres"
+    ).isLength({ min: 5 }),
+    validarCampos,
+  ],
+  signin
+);
+
 export default router;

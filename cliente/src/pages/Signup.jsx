@@ -85,7 +85,7 @@ export const Signup = () => {
           />
 
           {error && (
-            <div className="bg-red-500 text-white text-sm text-center py-1">
+            <div className="py-1 text-sm text-center text-white bg-red-500">
               {errorMessage}
             </div>
           )}

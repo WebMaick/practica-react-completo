@@ -1,7 +1,9 @@
 import { BsSearch } from "react-icons/bs";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export const Header = () => {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <header className="flex-wrap p-2 bg-gray-900">
       <div className="flex items-center justify-between h-12 max-w-6xl mx-auto">
@@ -30,9 +32,16 @@ export const Header = () => {
             <li className="cursor-pointer hover:text-red-500">Nosotros</li>
           </Link>
 
-          <Link to="/signin">
+          {currentUser ? (
+            // <img src="" alt="imagen" width={"40px"} height={"40px"} />
+            <Link to="/profile">
+              <li>
+                <h3>{currentUser.fullname}</h3>
+              </li>
+            </Link>
+          ) : (
             <li className="cursor-pointer hover:text-red-500">Login</li>
-          </Link>
+          )}
         </ul>
       </div>
     </header>

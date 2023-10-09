@@ -1,10 +1,11 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Profile } from '../pages/Profile'
-import { About } from '../pages/About'
-import { SignIn } from '../pages/SignIn'
-import { Home } from '../pages/Home'
-import { Header } from '../components/Header'
-import { Signup } from '../pages/Signup'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Profile } from "../pages/Profile";
+import { About } from "../pages/About";
+import { SignIn } from "../pages/SignIn";
+import { Home } from "../pages/Home";
+import { Header } from "../components/Header";
+import { Signup } from "../pages/Signup";
+import { PrivateRoute } from "./PrivateRoute";
 
 export const RouteApp = () => {
   return (
@@ -16,8 +17,10 @@ export const RouteApp = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};

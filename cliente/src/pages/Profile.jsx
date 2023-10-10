@@ -136,10 +136,13 @@ export const Profile = () => {
       </form>
 
       <div className="flex justify-between text-sm text-gray-950 font-semibold my-3">
-        <span onClick={handleDeleteUser} className="cursor-pointer">
+        <span
+          onClick={handleDeleteUser}
+          className="cursor-pointer text-red-700"
+        >
           Delete account
         </span>
-        <span>Sign out</span>
+        <span className="text-red-700">Sign out</span>
       </div>
 
       {updateSuccess && (

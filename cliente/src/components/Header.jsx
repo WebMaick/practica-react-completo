@@ -40,7 +40,9 @@ export const Header = () => {
               </li>
             </Link>
           ) : (
-            <li className="cursor-pointer hover:text-red-500">Login</li>
+            <Link to={"/signin"}>
+              <li className="cursor-pointer hover:text-red-500">Login</li>
+            </Link>
           )}
         </ul>
       </div>

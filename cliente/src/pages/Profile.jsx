@@ -5,6 +5,9 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
+  signoutUserFailure,
+  signoutUserStart,
+  signoutUserSuccess,
   updateUserFailure,
   updateUserSuccess,
 } from "../redux/user/userSlice";
@@ -82,9 +85,28 @@ export const Profile = () => {
     }
   };
 
+  // FUncion para salir de la sesion
+  const handleSignout = async () => {
+    try {
+      dispatch(signoutUserStart());
+      const res = await fetch("/api/auth/signout");
+      const data = await res.json();
+
+      if (data.ok === false) {
+        dispatch(signoutUserFailure(data.message));
+        return;
+      }
+
+      dispatch(signoutUserSuccess(data));
+    } catch (error) {
+      console.log(error);
+      dispatch(signoutUserFailure(error.message));
+    }
+  };
+
   return (
-    <div className="max-w-lg mx-auto mt-3 shadow-md p-5">
-      <h2 className="text-center text-3xl my-3">Profile</h2>
+    <div className="max-w-lg p-5 mx-auto mt-3 shadow-md">
+      <h2 className="my-3 text-3xl text-center">Profile</h2>
 
       <form className="grid gap-y-3" onSubmit={handleSubmit}>
         <input
@@ -101,7 +123,7 @@ export const Profile = () => {
           alt="imagen-avatar"
           width={"70px"}
           height={"70px"}
-          className="rounded-full mx-auto my-4 cursor-pointer"
+          className="mx-auto my-4 rounded-full cursor-pointer"
           onClick={() => imageRef.current.click()}
         />
         <input
@@ -130,28 +152,31 @@ export const Profile = () => {
           className="py-1.5 px-2"
         />
 
-        <button className="bg-gray-950 text-white py-2 w-full rounded-md mt-4">
+        <button className="w-full py-2 mt-4 text-white rounded-md bg-gray-950">
           {loading ? "Cargando..." : "UPDATE"}
         </button>
       </form>
 
-      <div className="flex justify-between text-sm text-gray-950 font-semibold my-3">
+      <div className="flex justify-between my-3 text-sm font-semibold text-gray-950">
         <span
           onClick={handleDeleteUser}
-          className="cursor-pointer text-red-700"
+          className="text-red-700 cursor-pointer"
         >
           Delete account
         </span>
-        <span className="text-red-700">Sign out</span>
+
+        <span onClick={handleSignout} className="text-red-700 cursor-pointer">
+          Sign out
+        </span>
       </div>
 
       {updateSuccess && (
-        <span className="bg-green-700 text-white p-2 rounded-md">
+        <span className="p-2 text-white bg-green-700 rounded-md">
           Usuario actualizado correctamente
         </span>
       )}
 
-      <p className="text-red-500 italic font-semibold">{error ? error : ""}</p>
+      <p className="italic font-semibold text-red-500">{error ? error : ""}</p>
     </div>
   );
 };

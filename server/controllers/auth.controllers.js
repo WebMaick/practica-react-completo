@@ -104,4 +104,20 @@ const revalidarTokenUsuario = async (req, res = response) => {
   });
 };
 
-export { signin, signup, revalidarTokenUsuario };
+const signout = (req, res = response) => {
+  try {
+    res.clearCookie("access_token");
+    res.status(200).json({
+      ok: true,
+      message: "El usuario cerro sesion",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      message: "Hable con el administrador",
+    });
+  }
+};
+
+export { signin, signup, revalidarTokenUsuario, signout };

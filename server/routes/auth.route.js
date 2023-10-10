@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   revalidarTokenUsuario,
   signin,
+  signout,
   signup,
 } from "../controllers/auth.controllers.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
@@ -45,5 +46,8 @@ router.post(
 
 // Actualizacion token usuario
 router.get("/renew", validarJWT, revalidarTokenUsuario);
+
+//
+router.get("/signout", signout);
 
 export default router;

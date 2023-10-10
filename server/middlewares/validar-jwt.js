@@ -1,13 +1,15 @@
 import { response } from "express";
-import { verify } from "jsonwebtoken";
+import pkg from "jsonwebtoken";
+const { verify } = pkg;
 
 const validarJWT = (req, res = response, next) => {
-  const token = req.header("x-token");
+  //const token = req.header("x-token");
+  const token = req.cookies.access_token;
 
   if (!token) {
     return res.status(401).json({
       ok: false,
-      message: "No hay token en la peticion",
+      message: "Revise su sesion - token",
     });
   }
 

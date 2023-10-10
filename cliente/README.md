@@ -10,3 +10,4 @@
 - npm i @redux/toolkit
 - npm i react-redux
 - npm i redux-persist
+- npm i cookie-parser

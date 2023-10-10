@@ -28,7 +28,7 @@ const signin = async (req, res = response) => {
 
     // envio de cookie
     res
-      .cookie("access-token", token, {
+      .cookie("access_token", token, {
         httpOnly: true,
         // expires: new Date(Date.now() + 24 * 60 * 60 * 100),
       })
@@ -73,13 +73,13 @@ const signup = async (req, res = response) => {
     const newUser = await usuario.save();
 
     // Genera nuevo token
-    const token = await generarJWT(newUser._id, newUser.fullname);
+    //const token = await generarJWT(newUser._id, newUser.fullname);
 
     res.status(401).json({
       ok: true,
       message: "Su regitro fue exitoso",
       newUser,
-      token,
+      // token,
     });
   } catch (err) {
     console.log(err.message);
@@ -90,4 +90,18 @@ const signup = async (req, res = response) => {
   }
 };
 
-export { signin, signup };
+const revalidarTokenUsuario = async (req, res = response) => {
+  const { uid, nombre } = req;
+
+  // Generrar nustro JWT
+  const token = await generarJWT(uid, nombre);
+
+  res.json({
+    ok: true,
+    uid,
+    nombre,
+    token,
+  });
+};
+
+export { signin, signup, revalidarTokenUsuario };

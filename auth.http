@@ -4,7 +4,7 @@ POST http://localhost:3001/api/auth/signin HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "webmaick@gmail.com",
+  "email": "webmaick2@gmail.com",
   "password": "12345"
 }
 ###
@@ -14,6 +14,21 @@ Content-Type: application/json
 
 {
   "fullname": "Miguel Angel",
-  "email": "webmaick@gmail.com",
+  "email": "webmaick2@gmail.com",
   "password": "12345"
 }
+
+###
+// Update Usuario
+POST http://localhost:3001/api/user/update/65248371425dea2396a9709e HTTP/1.1
+Content-Type: application/json
+
+{
+  "fullname": "Miguel Angel cayo mamani"
+}
+
+###
+// delete Usuario
+DELETE  http://localhost:3001/api/user/delete/6524b6e8deccac1ac22fc02b HTTP/1.1
+Content-Type: application/json
+

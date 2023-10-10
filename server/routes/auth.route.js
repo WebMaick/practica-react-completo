@@ -1,7 +1,12 @@
 import { Router } from "express";
-import { signin, signup } from "../controllers/auth.controllers.js";
+import {
+  revalidarTokenUsuario,
+  signin,
+  signup,
+} from "../controllers/auth.controllers.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { check } from "express-validator";
+import { validarJWT } from "../middlewares/validar-jwt.js";
 
 const router = Router();
 
@@ -37,5 +42,8 @@ router.post(
   ],
   signin
 );
+
+// Actualizacion token usuario
+router.get("/renew", validarJWT, revalidarTokenUsuario);
 
 export default router;
